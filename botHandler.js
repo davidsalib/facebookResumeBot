@@ -1,6 +1,6 @@
 var request = require('request');
 
-function botHandler(sender, text) {
+var botHandler = function (sender, text) {
   if (text == "generic") {
     sendGenericMessage(sender);
   } else {

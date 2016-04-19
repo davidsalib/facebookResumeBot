@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
-var botHandler = require('botHandler.js');
+var botHandler = require('./botHandler');
 
 var app = express();
 
