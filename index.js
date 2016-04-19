@@ -1,28 +1,61 @@
-'use strict'
-const http = require('http')
-const Bot = require('messenger-bot')
+var express = require('express');
+var app = express();
 
-let bot = new Bot({
-  token: 'EAAYQyuiljoABAHdfxzLs4pxZAHhZBbli3MDMekUJq8Sd5btCAfMxUxvh6EuCnj85RPgfYkBkKYu3ZBJn0PUd6yeaZCGsZCZC7Qewx8ZCSyJL3HDUtfgPQGNc35VXoqREkExyFheDTvYmupCr0KRMiYKNNjmlhqNR7NK1kXcnaZCGjQZDZD',
-  verify: 'davdSalib1996A19'
-})
+app.set('port', (process.env.PORT || 5000));
 
-bot.on('error', (err) => {
-  console.log(err.message)
-})
+app.use(express.static(__dirname + '/public'));
 
-bot.on('message', (payload, reply) => {
-  let text = payload.message.text
+// views is directory for all template files
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 
-  bot.getProfile(payload.sender.id, (err, profile) => {
-    if (err) throw err
+app.get('/', function(request, response) {
+  response.render('pages/index');
+});
 
-    reply({ text }, (err) => {
-      if (err) throw err
+app.get('/fbBot', function(req, res) {
+  if (req.query['hub.verify_token'] === 'davdSalib1996A19') {
+    res.send(req.query['hub.challenge']);
+  }
+  res.send('Error, wrong validation token');
+});
 
-      console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${text}`)
-    })
-  })
-})
+var token = "EAAYQyuiljoABABWfDx8QZAtZCkvpkx9TbZAkmv8MehxZAF2OgeQviRxz6nWNW0gxKgMq50vDEMIUY3j2P8t05wq7rOHEbVjCFiRANvetqAgnWqrNX9ZAPpcTrTRgZCi3T1oZBeDPV9hVheJeGAc18E49KiDMkRsRGGTt8CFxiyNyQZDZD";
 
-http.createServer(bot.middleware()).listen(3000)
+function sendTextMessage(sender, text) {
+  messageData = {
+    text:text
+  }
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending message: ', error);
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error);
+    }
+  });
+}
+
+app.post('/fbBot', function (req, res) {
+  messaging_events = req.body.entry[0].messaging;
+  for (i = 0; i < messaging_events.length; i++) {
+    event = req.body.entry[0].messaging[i];
+    sender = event.sender.id;
+    if (event.message && event.message.text) {
+      text = event.message.text;
+      sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
+    }
+  }
+  res.sendStatus(200);
+});
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
