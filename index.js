@@ -1,5 +1,8 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
+
+var jsonParser = bodyParser.json();
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -43,7 +46,7 @@ function sendTextMessage(sender, text) {
   });
 }
 
-app.post('/fbBot', function (req, res) {
+app.post('/fbBot', jsonParser, function (req, res) {
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
     event = req.body.entry[0].messaging[i];
