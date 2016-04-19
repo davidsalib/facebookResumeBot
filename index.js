@@ -21,7 +21,7 @@ app.get('/fbBot', function(req, res) {
 });
 
 app.post('/fbBot', function (req, res) {
-  console.log(req.body);
+  process.stdout.write(req.body);
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
     event = req.body.entry[0].messaging[i];
