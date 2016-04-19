@@ -13,8 +13,10 @@ app.get('/', function(request, response) {
   response.render('pages/index');
 });
 
+app.get('/fbBot', function(req, res) {
+  res.json('ok this is cool');
+});
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-
-
