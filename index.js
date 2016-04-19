@@ -14,7 +14,10 @@ app.get('/', function(request, response) {
 });
 
 app.get('/fbBot', function(req, res) {
-  res.json('ok this is cool');
+  if (req.query['hub.verify_token'] === 'davdSalib1996A19') {
+    res.send(req.query['hub.challenge']);
+  }
+  res.send('Error, wrong validation token');
 });
 
 app.listen(app.get('port'), function() {
