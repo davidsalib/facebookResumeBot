@@ -137,6 +137,12 @@ var botHandler = function (sender, payload, type) {
             case "languages":
                 sendSkillsLanguages(sender);
                 break;
+            case "frameworks":
+                sendSkillsFrameworks(sender);
+                break;
+            case "tools":
+                sendSkillsTools(sender);
+                break;
             default:
                 break;
         }
@@ -165,12 +171,28 @@ function sendSkillsButtons(sender) {
 
 function sendSkillsLanguages(sender) {
     msg = "Here are the programming languages David is experienced with, I added stars for some flare! \n"
-    for (var i = 0; i < resume.technicalSkills.languages; i++) {
+    for (var i = 0; i < resume.technicalSkills.languages.length; i++) {
         msg += "- " + resume.technicalSkills.languages[i].title;
         for (var x = 0; i < resume.technicalSkills.languages[i].level; x++) {
             msg += "✩";
         }
         msg += "\n";
+    }
+    sendTextMessage(sender, msg);
+}
+
+function sendSkillsFrameworks(sender) {
+    msg = "These are the frameworks David uses the most: \n"
+    for (var i = 0; i < resume.technicalSkills.frameworks.length; i++) {
+        msg += "- " + resume.technicalSkills.frameworks[i].title + "\n";
+    }
+    sendTextMessage(sender, msg);
+}
+
+function sendSkillsTools(sender) {
+    msg = "These are some of the common tools David uses while developing \n"
+    for (var i = 0; i < resume.technicalSkills.tools.length; i++) {
+        msg += "- " + resume.technicalSkills.tools[i].title + "\n";
     }
     sendTextMessage(sender, msg);
 }
