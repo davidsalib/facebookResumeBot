@@ -88,7 +88,8 @@ function sendJobExperience(sender) {
         payload: "@"+jobs[i].id+":more"
       }, {
         type: "postback",
-        title: "What was your biggest achievement at " + jobs[i].company
+        title: "What was your biggest achievement at " + jobs[i].company,
+        payload: "@"+jobs[i].id+":highlight"
       }]
     };
     console.log("item:-------"+JSON.stringify(item));
