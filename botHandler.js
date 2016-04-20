@@ -1,14 +1,57 @@
 var request = require('request');
+var token = "EAAYQyuiljoABABWfDx8QZAtZCkvpkx9TbZAkmv8MehxZAF2OgeQviRxz6nWNW0gxKgMq50vDEMIUY3j2P8t05wq7rOHEbVjCFiRANvetqAgnWqrNX9ZAPpcTrTRgZCi3T1oZBeDPV9hVheJeGAc18E49KiDMkRsRGGTt8CFxiyNyQZDZD";
 
-var botHandler = function (sender, text) {
-  if (text == "generic") {
-    sendGenericMessage(sender);
-  } else {
-    sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
-  }
+var resume = {
+  name: "David Salib",
+  jobs: [{
+    id: "SIE",
+    img: "https://www.savannahstate.edu/academic-affairs/images/thailand_pic.jpg"
+    company: "Sony Interactive Entertainment",
+    role: "Software Engineer",
+    startDate: "January 2016",
+    endDate: "April 2016",
+    desc: [
+      "I worked on the PlayStation Store as well as the PlayStation Video App for iOS and Android."
+    ]
+    highlightAchievement: "On launch team for PlayStation Video for Android"
+  }, {
+    id: "FAO",
+    img: "https://www.savannahstate.edu/academic-affairs/images/thailand_pic.jpg"
+    company: "Frank& Oak",
+    role: "Web Developer",
+    startDate: "May 2015",
+    endDate: "September 2015",
+    desc: [
+      "Developed ecommerce and API tools to support one of North America's fastest growing fashion startups."
+    ],
+    highlightAchievement: "David proposed and developed a customer tool that replaced Frank & Oak's previous order fulfillment process, improving efficiency by 200%"
+  }],
+  education: {
+    institution: "University of Waterloo",
+    degree: "Computer Science",
+    startYear: 2014,
+    endYear: 2019
+  },
+  projects: [{
+      title: "Catena",
+      img: "https://www.savannahstate.edu/academic-affairs/images/thailand_pic.jpg"
+  },{
+    title: "FHTSystem",
+    img: "https://www.savannahstate.edu/academic-affairs/images/thailand_pic.jpg"
+  },{
+    title: "Pluto",
+    img: "https://www.savannahstate.edu/academic-affairs/images/thailand_pic.jpg"
+  }]
 }
 
-var token = "EAAYQyuiljoABABWfDx8QZAtZCkvpkx9TbZAkmv8MehxZAF2OgeQviRxz6nWNW0gxKgMq50vDEMIUY3j2P8t05wq7rOHEbVjCFiRANvetqAgnWqrNX9ZAPpcTrTRgZCi3T1oZBeDPV9hVheJeGAc18E49KiDMkRsRGGTt8CFxiyNyQZDZD";
+var botHandler = function (sender, text) {
+  text = test.toLowerCase();
+  if (text.indexOf("experience") > -1) {
+    sendJobExperience(sender);
+  } else {
+    sendTextMessage(sender, "Hey, nice to meet you :) Would you like to learn about David Salib? You can ask about Projects, Job Experience, Education, and his Interests. Go ahead, try it!");
+  }
+}
 
 function sendTextMessage(sender, text) {
   messageData = {
@@ -31,35 +74,31 @@ function sendTextMessage(sender, text) {
   });
 }
 
-function sendGenericMessage(sender) {
+function sendJobExperience(sender) {
+  var payload = [];
+  for (var job in resume.jobs) {
+    var item =  {
+      title: job.role,
+      subtitle: job.company,
+      image_url: job.img,
+      buttons: [{
+        type: "postback",
+        title: "Tell me more"
+        payload: "@"+job.id+":more"
+      }, {
+        type: "postback",
+        title: "What was your biggest achievement at " + job.company
+      }]
+    }
+    payload.push(item);
+  }
+
   messageData = {
     "attachment": {
       "type": "template",
       "payload": {
         "template_type": "generic",
-        "elements": [{
-          "title": "First card",
-          "subtitle": "Element #1 of an hscroll",
-          "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-          "buttons": [{
-            "type": "web_url",
-            "url": "https://www.messenger.com/",
-            "title": "Web url"
-          }, {
-            "type": "postback",
-            "title": "Postback",
-            "payload": "Payload for first element in a generic bubble",
-          }],
-        },{
-          "title": "Second card",
-          "subtitle": "Element #2 of an hscroll",
-          "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-          "buttons": [{
-            "type": "postback",
-            "title": "Postback",
-            "payload": "Payload for second element in a generic bubble",
-          }],
-        }]
+        "elements": payload
       }
     }
   };
