@@ -47,7 +47,7 @@ var resume = {
 var botHandler = function (sender, payload, type) {
     if (type == "message") {
         payload = text.toLowerCase();
-        if (text == "experience") {
+        if (payload == "experience") {
             sendJobExperience(sender);
         } else {
             sendTextMessage(sender, "Hey, nice to meet you :) Would you like to learn about David Salib? You can ask about Projects, Job Experience, Education, and his Interests. Go ahead, try it!");
