@@ -45,7 +45,7 @@ var resume = {
 }
 
 var botHandler = function (sender, text) {
-  text = test.toLowerCase();
+  text = text.toLowerCase();
   if (text.indexOf("experience") > -1) {
     sendJobExperience(sender);
   } else {
