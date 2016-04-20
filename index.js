@@ -33,7 +33,15 @@ app.post('/fbBot', jsonParser, function (req, res) {
     sender = event.sender.id;
     if (event.message && event.message.text) {
       text = event.message.text;
-      botHandler(sender, text);
+      botHandler(sender, text, "message");
+    } else if (event.postback.payload) {
+      payload = event.postback.payload;
+      console.log(payload);
+      payloadSplit = payload.split(":");
+      id =  payloadSplit[0];
+      action = payloadSplit[1];
+      
+      botHandler(sender, {id: id, action: action}, "postback");
     }
   }
   res.sendStatus(200);

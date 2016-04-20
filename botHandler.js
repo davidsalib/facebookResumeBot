@@ -44,12 +44,21 @@ var resume = {
     }]
 };
 
-var botHandler = function (sender, text) {
-    text = text.toLowerCase();
-    if (text == "experience") {
-        sendJobExperience(sender);
-    } else {
-        sendTextMessage(sender, "Hey, nice to meet you :) Would you like to learn about David Salib? You can ask about Projects, Job Experience, Education, and his Interests. Go ahead, try it!");
+var botHandler = function (sender, payload, type) {
+    if (type == "message") {
+        payload = text.toLowerCase();
+        if (text == "experience") {
+            sendJobExperience(sender);
+        } else {
+            sendTextMessage(sender, "Hey, nice to meet you :) Would you like to learn about David Salib? You can ask about Projects, Job Experience, Education, and his Interests. Go ahead, try it!");
+        }
+    } else if (type == "postback") {
+        switch(payload.action) {
+            case "jobHighlight":
+                sendJobHighlight(sender, payload.id);
+                break;
+            default: break;
+        }
     }
 };
 
@@ -74,6 +83,19 @@ function sendTextMessage(sender, text) {
     });
 }
 
+function sendJobHighlight(sender, id) {
+    var job;
+    for (var i = 0; i < resume.jobs.length; i++) {
+        if (resume.jobs[i].id == id) {
+            job = resume.jobs[i];
+        }
+    }
+
+    var msg = "At " + job.company + " David " + job.highlightAchievement;
+
+    sendTextMessage(sender, msg);
+}
+
 function sendJobExperience(sender) {
     var payload = [];
     var jobs = resume.jobs;
@@ -85,15 +107,15 @@ function sendJobExperience(sender) {
             buttons: [{
                 type: "postback",
                 title: "Tell me more",
-                payload: "@" + jobs[i].id + ":more"
+                payload: jobs[i].id + ":jobMore"
             }, {
                 type: "postback",
                 title: "Highlight Achievement",
-                payload: "@" + jobs[i].id + ":highlight"
+                payload: jobs[i].id + ":jobHighlight"
             }, {
                 type: "postback",
                 title: "Technologies Used",
-                payload: "@" + jobs[i].id + ":technologies"
+                payload: jobs[i].id + ":jobTechnologies"
             }]
         };
         payload.push(item);
