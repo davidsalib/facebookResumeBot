@@ -106,65 +106,68 @@ var resume = {
 };
 
 var botHandler = function (sender, payload, type) {
-    if (type == "message") {
-        payload = text.toLowerCase();
-        if (payload.indexOf("experience") > -1 || payload.indexOf("job") > -1) {
-            sendJobExperience(sender);
-        }
-        else if (payload.indexOf('study') > -1 || payload.indexOf("education") > -1 || payload.indexOf("university") > -1) {
-            sendEducation(sender);
-        }
-        else if (payload.indexOf('skills') > -1 || payload.indexOf("coding") > -1 || payload.indexOf("programming") > -1) {
-            sendSkillsButtons(sender);
-        }
-        else if (payload.indexOf("languages") > -1) {
-            sendProgrammingLanguages(sender);
-        }
-        else {
-            sendTextMessage(sender, "Hi, I'm David's Bot! Ask me about his Skills, Job Experience, Projects, Education, and his Interests.\n\nYou can even ask how he built me :)");
-        }
-    } else if (type == "postback") {
-        switch (payload.action) {
-            case "jobHighlight":
-                sendJobHighlight(sender, payload.id);
-                break;
-            case "jobDesc":
-                sendJobDescription(sender, payload.id);
-                break;
-            case "jobTechnologies":
-                sendJobTechnologies(sender, payload.id);
-                break;
-            case "languages":
+        if (type == "message") {
+            payload = text.toLowerCase();
+            if (payload.indexOf("experience") > -1 || payload.indexOf("job") > -1) {
+                sendJobExperience(sender);
+            }
+            else if (payload.indexOf('study') > -1 || payload.indexOf("education") > -1 || payload.indexOf("university") > -1) {
+                sendEducation(sender);
+            }
+            else if (payload.indexOf('skills') > -1 || payload.indexOf("coding") > -1 || payload.indexOf("programming") > -1 || payload.indexOf("know") > -1) {
+                sendSkillsButtons(sender);
+            }
+            else if (payload.indexOf("languages") > -1 || payload.indexOf("js") > -1 || payload.indexOf("javascript") > -1) {
                 sendSkillsLanguages(sender);
-                break;
-            case "frameworks":
-                sendSkillsFrameworks(sender);
-                break;
-            case "tools":
-                sendSkillsTools(sender);
-                break;
-            default:
-                break;
+            }
+            else if (payload.indexOf("you") > -1 || payload.indexOf("build") > -1 || payload.indexOf("built") > -1 || payload.indexOf("made") > -1 || payload.indexOf("create") > -1) {
+                sendHowIWasMade(sender);
+            }
+            else {
+                sendTextMessage(sender, "Hi, I'm David's Bot! Ask me about his Skills, Job Experience, Projects, Education, and his Interests.\n\nYou can even ask how he built me :)");
+            }
+        } else if (type == "postback") {
+            switch (payload.action) {
+                case "jobHighlight":
+                    sendJobHighlight(sender, payload.id);
+                    break;
+                case "jobDesc":
+                    sendJobDescription(sender, payload.id);
+                    break;
+                case "jobTechnologies":
+                    sendJobTechnologies(sender, payload.id);
+                    break;
+                case "languages":
+                    sendSkillsLanguages(sender);
+                    break;
+                case "frameworks":
+                    sendSkillsFrameworks(sender);
+                    break;
+                case "tools":
+                    sendSkillsTools(sender);
+                    break;
+                default:
+                    break;
+            }
         }
     }
-};
+    ;
 
 
 /** Skills **/
-
 function sendSkillsButtons(sender) {
     buttons = [{
-        type:"postback",
-        title:"Languages (i.e. C++)",
-        payload:"skills:languages"
+        type: "postback",
+        title: "Languages (i.e. C++)",
+        payload: "skills:languages"
     }, {
-        type:"postback",
-        title:"Frameworks (i.e. React)",
-        payload:"skills:frameworks"
+        type: "postback",
+        title: "Frameworks (i.e. React)",
+        payload: "skills:frameworks"
     }, {
-        type:"postback",
-        title:"Tools (i.e. Git)",
-        payload:"skills:tools"
+        type: "postback",
+        title: "Tools (i.e. Git)",
+        payload: "skills:tools"
     }]
     sendTextMessageWithButtons(sender, "Pick a category of technical skills: ", buttons)
 }
@@ -172,11 +175,7 @@ function sendSkillsButtons(sender) {
 function sendSkillsLanguages(sender) {
     msg = "Here are the programming languages David is experienced with, I added stars for some flare! \n"
     for (var i = 0; i < resume.technicalSkills.languages.length; i++) {
-        msg += "- " + resume.technicalSkills.languages[i].title;
-        for (var x = 0; x < resume.technicalSkills.languages[i].level; x++) {
-            msg += "✩";
-        }
-        msg += "\n";
+        msg += "- " + resume.technicalSkills.languages[i].title + "\n";
     }
     sendTextMessage(sender, msg);
 }
@@ -199,7 +198,7 @@ function sendSkillsTools(sender) {
 
 /** EDUCATION **/
 function sendEducation(sender) {
-    msg = "Since " + resume.education.startYear + " David has been persuing a degree in " + resume.education.degree + " at the " + resume.education.institution + " which is expected to be complete in 2019";
+    msg = "Since " + resume.education.startYear + " David has been pursuing a degree in " + resume.education.degree + " at the " + resume.education.institution + " which is expected to be complete in 2019";
     sendTextMessage(sender, msg);
 }
 
@@ -353,6 +352,16 @@ function sendCards(sender, payload) {
             console.log('Error: ', response.body.error);
         }
     });
+}
+
+
+/** FUN **/
+function sendHowIWasMade(sender) {
+    msg = "Oh, I love this story. David built me in 3 hours on a warm spring day in April of 2016 B|.\n\n";
+    msg += "There is a NodeJS server hosted on Heroku where your messages are sent through Facebook's Messenger Platform. Then some simple functions try to understand your complex human language.\n";
+    msg += "Feel free to contact David at me@davidsalib.com\n\n";
+    msg += "Sincerly,\nBotty";
+    sendTextMessage(sender, msg);
 }
 
 module.exports = botHandler;
