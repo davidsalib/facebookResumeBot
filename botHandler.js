@@ -167,7 +167,7 @@ function sendSkillsLanguages(sender) {
     msg = "Here are the programming languages David is experienced with, I added stars for some flare! \n"
     for (var i = 0; i < resume.technicalSkills.languages; i++) {
         msg += "- " + resume.technicalSkills.languages[i].title;
-        for (var x = 0; i < resume.technicalSkills.languages[i[.level) {
+        for (var x = 0; i < resume.technicalSkills.languages[i].level; x++) {
             msg += "✩";
         }
         msg += "\n";
