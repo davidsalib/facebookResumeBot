@@ -11,20 +11,22 @@ var resume = {
         startDate: "January 2016",
         endDate: "April 2016",
         desc: [
-            "I worked on the PlayStation Store as well as the PlayStation Video App for iOS and Android."
+            "worked on the PlayStation Store and PlayStation Video Apps for iOS and Android."
         ],
-        highlightAchievement: "On launch team for PlayStation Video for Android"
+        technologies: ["JavaScript", "Objective-C", "CSS3 Animations", "ReactJS", "Backbone.js"],
+        highlightAchievement: "developed and released PlayStation Video for Android 8| (https://play.google.com/store/apps/details?id=com.playstation.video)"
     }, {
         id: "FAO",
         img: "https://edge.frankandoak.com/media/stylenote/uploads/2015/03/STORE1.jpg",
-        company: "Frank& Oak",
+        company: "Frank & Oak",
         role: "Web Developer",
         startDate: "May 2015",
         endDate: "September 2015",
         desc: [
             "Developed e-commerce and API tools to support one of North America's fastest growing fashion startups."
         ],
-        highlightAchievement: "David proposed and developed a customer tool that replaced Frank & Oak's previous order fulfillment process, improving efficiency by 200%"
+        technologies: ["PHP + Magento", "JavaScript"],
+        highlightAchievement: "proposed and developed a customer service tool that replaced Frank & Oak's previous order fulfillment process, improving efficiency by 200% :D"
     }],
     education: {
         institution: "University of Waterloo",
@@ -47,7 +49,7 @@ var resume = {
 var botHandler = function (sender, payload, type) {
     if (type == "message") {
         payload = text.toLowerCase();
-        if (payload == "experience") {
+        if (payload.indexOf("experience") > -1) {
             sendJobExperience(sender);
         } else {
             sendTextMessage(sender, "Hey, nice to meet you :) Would you like to learn about David Salib? You can ask about Projects, Job Experience, Education, and his Interests. Go ahead, try it!");
@@ -56,6 +58,12 @@ var botHandler = function (sender, payload, type) {
         switch(payload.action) {
             case "jobHighlight":
                 sendJobHighlight(sender, payload.id);
+                break;
+            case "jobDesc":
+                sendJobDescription(sender, payload.id);
+                break;
+            case "jobTechnologies":
+                sendJobTechnologies(sender, payload.id);
                 break;
             default: break;
         }
@@ -83,6 +91,19 @@ function sendTextMessage(sender, text) {
     });
 }
 
+function sendJobDescription(sender, id) {
+    var job;
+    for (var i = 0; i < resume.jobs.length; i++) {
+        if (resume.jobs[i].id == id) {
+            job = resume.jobs[i];
+        }
+    }
+
+    var msg = "At " + job.company + ", David " + job.desc[0];
+
+    sendTextMessage(sender, msg);
+}
+
 function sendJobHighlight(sender, id) {
     var job;
     for (var i = 0; i < resume.jobs.length; i++) {
@@ -91,7 +112,24 @@ function sendJobHighlight(sender, id) {
         }
     }
 
-    var msg = "At " + job.company + " David " + job.highlightAchievement;
+    var msg = "At " + job.company + ", David " + job.highlightAchievement;
+
+    sendTextMessage(sender, msg);
+}
+
+function sendJobTechnologies(sender, id) {
+    var job;
+    for (var i = 0; i < resume.jobs.length; i++) {
+        if (resume.jobs[i].id == id) {
+            job = resume.jobs[i];
+        }
+    }
+
+    var msg = "At " + job.company + ", David worked with:\n";
+
+    for (var i = 0; i < job.technologies.length; i++) {
+        msg += "- " + job.technologies[i] + "\n";
+    }
 
     sendTextMessage(sender, msg);
 }
@@ -107,7 +145,7 @@ function sendJobExperience(sender) {
             buttons: [{
                 type: "postback",
                 title: "Tell me more",
-                payload: jobs[i].id + ":jobMore"
+                payload: jobs[i].id + ":jobDesc"
             }, {
                 type: "postback",
                 title: "Highlight Achievement",
