@@ -46,7 +46,7 @@ var resume = {
 
 var botHandler = function (sender, text) {
   text = text.toLowerCase();
-  if (text.indexOf("experience") > -1) {
+  if (text == "experience") {
     sendJobExperience(sender);
   } else {
     sendTextMessage(sender, "Hey, nice to meet you :) Would you like to learn about David Salib? You can ask about Projects, Job Experience, Education, and his Interests. Go ahead, try it!");
@@ -91,8 +91,11 @@ function sendJobExperience(sender) {
         title: "What was your biggest achievement at " + jobs[i].company
       }]
     };
+    console.log("item:-------"+JSON.stringify(item));
     payload.push(item);
   }
+
+  console.log(payload);
 
   messageData = {
     "attachment": {
@@ -103,6 +106,7 @@ function sendJobExperience(sender) {
       }
     }
   };
+
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
