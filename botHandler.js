@@ -43,19 +43,88 @@ var resume = {
     }, {
         title: "Pluto",
         img: "https://www.savannahstate.edu/academic-affairs/images/thailand_pic.jpg"
-    }]
+    }],
+    technicalSkills: {
+        languages: [{
+            title: "JavaScript (ES5 & ES6)",
+            level: 5
+        }, {
+            title: "PHP",
+            level: 5
+        }, {
+            title: "C++",
+            level: 5
+        }, {
+            title: "Objective-C",
+            level: 5
+        }, {
+            title: "Scheme",
+            level: 5
+        }, {
+            title: "PHP",
+            level: 5
+        }],
+        frameworks: [{
+            title: "React & React Native",
+            level: 5
+        }, {
+            title: "AngularJS",
+            level: 5
+        }, {
+            title: "Cordova + Ionic",
+            level: 5
+        }, {
+            title: "NodeJS",
+            level: 5
+        }, {
+            title: "Laravel",
+            level: 5
+        }, {
+            title: "Magento",
+            level: 5
+        }],
+        tools: [{
+            title: "Git",
+            level: 5
+        }, {
+            title: "MongoDB",
+            level: 5
+        }, {
+            title: "MySQL",
+            level: 5
+        }, {
+            title: "Amazon Web Services",
+            level: 5
+        }, {
+            title: "Heroku",
+            level: 5
+        }, {
+            title: "Redis",
+            level: 5
+        }]
+    }
 };
 
 var botHandler = function (sender, payload, type) {
     if (type == "message") {
         payload = text.toLowerCase();
-        if (payload.indexOf("experience") > -1) {
+        if (payload.indexOf("experience") > -1 || payload.indexOf("job") > -1) {
             sendJobExperience(sender);
-        } else {
-            sendTextMessage(sender, "Hey, nice to meet you :) Would you like to learn about David Salib? You can ask about Projects, Job Experience, Education, and his Interests. Go ahead, try it!");
+        }
+        else if (payload.indexOf('study') > -1 || payload.indexOf("education") > -1 || payload.indexOf("university") > -1) {
+            sendEducation(sender);
+        }
+        else if (payload.indexOf('skills') > -1 || payload.indexOf("coding") > -1 || payload.indexOf("programming") > -1) {
+            sendSkillsButtons(sender);
+        }
+        else if (payload.indexOf("languages") > -1) {
+            sendProgrammingLanguages(sender);
+        }
+        else {
+            sendTextMessage(sender, "Hi, I'm David's Bot! Ask me about his Skills, Job Experience, Projects, Education, and his Interests. \n You can even ask how he built me :)");
         }
     } else if (type == "postback") {
-        switch(payload.action) {
+        switch (payload.action) {
             case "jobHighlight":
                 sendJobHighlight(sender, payload.id);
                 break;
@@ -65,32 +134,54 @@ var botHandler = function (sender, payload, type) {
             case "jobTechnologies":
                 sendJobTechnologies(sender, payload.id);
                 break;
-            default: break;
+            case "languages":
+                sendSkillsLanguages(sender);
+                break;
+            default:
+                break;
         }
     }
 };
 
-function sendTextMessage(sender, text) {
-    messageData = {
-        text: text
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token: token},
-        method: 'POST',
-        json: {
-            recipient: {id: sender},
-            message: messageData,
-        }
-    }, function (error, response, body) {
-        if (error) {
-            console.log('Error sending message: ', error);
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-        }
-    });
+
+/** Skills **/
+
+function sendSkillsButtons(sender) {
+    buttons = [{
+        type:"postback",
+        title:"Languages (i.e. C++)",
+        payload:"skills:languages"
+    }, {
+        type:"postback",
+        title:"Frameworks (i.e. React)",
+        payload:"skills:frameworks"
+    }, {
+        type:"postback",
+        title:"Tools (i.e. Git)",
+        payload:"skills:tools"
+    }]
+    sendTextMessageWithButtons(sender, "Pick a category of technical skills: ", buttons)
 }
 
+function sendSkillsLanguages(sender) {
+    msg = "Here are the programming languages David is experienced with, I added stars for some flare! \n"
+    for (var i = 0; i < resume.technicalSkills.languages; i++) {
+        msg += "- " + resume.technicalSkills.languages[i].title;
+        for (var x = 0; i < resume.technicalSkills.languages[i[.level) {
+            msg += "✩";
+        }
+        msg += "\n";
+    }
+    sendTextMessage(sender, msg);
+}
+
+/** EDUCATION **/
+function sendEducation(sender) {
+    msg = "Since " + resume.education.startYear + " David has been persuing a degree in " + resume.education.degree + " at the " + resume.education.institution + " which is expected to be complete in 2019";
+    sendTextMessage(sender, msg);
+}
+
+/** JOB EXPERIENCE **/
 function sendJobDescription(sender, id) {
     var job;
     for (var i = 0; i < resume.jobs.length; i++) {
@@ -162,6 +253,57 @@ function sendJobExperience(sender) {
     sendCards(sender, payload);
 }
 
+
+/** FACEBOOK MESSENGER REQUESTS **/
+function sendTextMessage(sender, text) {
+    messageData = {
+        text: text
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token: token},
+        method: 'POST',
+        json: {
+            recipient: {id: sender},
+            message: messageData,
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log('Error sending message: ', error);
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+        }
+    });
+}
+
+function sendTextMessageWithButtons(sender, text, buttons) {
+    messageData = {
+        attachment: {
+            type: "template",
+            payload: {
+                template_type: "button",
+                text: text,
+                buttons: buttons
+            }
+        }
+    };
+
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token: token},
+        method: 'POST',
+        json: {
+            recipient: {id: sender},
+            message: messageData,
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log('Error sending message: ', error);
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+        }
+    });
+}
 
 function sendCards(sender, payload) {
     messageData = {
