@@ -76,20 +76,21 @@ function sendTextMessage(sender, text) {
 
 function sendJobExperience(sender) {
   var payload = [];
-  for (var job in resume.jobs) {
+  var jobs = resume.jobs;
+  for (var i = 0; i < jobs.length; i++) {
     var item =  {
-      title: job.role,
-      subtitle: job.company,
-      image_url: job.img,
+      title: jobs[i].role,
+      subtitle: jobs[i].company,
+      image_url: jobs[i].img,
       buttons: [{
         type: "postback",
         title: "Tell me more",
-        payload: "@"+job.id+":more"
+        payload: "@"+jobs[i].id+":more"
       }, {
         type: "postback",
-        title: "What was your biggest achievement at " + job.company
+        title: "What was your biggest achievement at " + jobs[i].company
       }]
-    }
+    };
     payload.push(item);
   }
 
