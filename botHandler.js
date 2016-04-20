@@ -121,7 +121,7 @@ var botHandler = function (sender, payload, type) {
             sendProgrammingLanguages(sender);
         }
         else {
-            sendTextMessage(sender, "Hi, I'm David's Bot! Ask me about his Skills, Job Experience, Projects, Education, and his Interests. \n You can even ask how he built me :)");
+            sendTextMessage(sender, "Hi, I'm David's Bot! Ask me about his Skills, Job Experience, Projects, Education, and his Interests.\n\nYou can even ask how he built me :)");
         }
     } else if (type == "postback") {
         switch (payload.action) {
@@ -173,7 +173,7 @@ function sendSkillsLanguages(sender) {
     msg = "Here are the programming languages David is experienced with, I added stars for some flare! \n"
     for (var i = 0; i < resume.technicalSkills.languages.length; i++) {
         msg += "- " + resume.technicalSkills.languages[i].title;
-        for (var x = 0; i < resume.technicalSkills.languages[i].level; x++) {
+        for (var x = 0; x < resume.technicalSkills.languages[i].level; x++) {
             msg += "✩";
         }
         msg += "\n";
