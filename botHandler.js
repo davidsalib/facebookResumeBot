@@ -5,18 +5,18 @@ var resume = {
   name: "David Salib",
   jobs: [{
     id: "SIE",
-    img: "https://www.savannahstate.edu/academic-affairs/images/thailand_pic.jpg"
+    img: "https://www.savannahstate.edu/academic-affairs/images/thailand_pic.jpg",
     company: "Sony Interactive Entertainment",
     role: "Software Engineer",
     startDate: "January 2016",
     endDate: "April 2016",
     desc: [
       "I worked on the PlayStation Store as well as the PlayStation Video App for iOS and Android."
-    ]
+    ],
     highlightAchievement: "On launch team for PlayStation Video for Android"
   }, {
     id: "FAO",
-    img: "https://www.savannahstate.edu/academic-affairs/images/thailand_pic.jpg"
+    img: "https://www.savannahstate.edu/academic-affairs/images/thailand_pic.jpg",
     company: "Frank& Oak",
     role: "Web Developer",
     startDate: "May 2015",
@@ -83,7 +83,7 @@ function sendJobExperience(sender) {
       image_url: job.img,
       buttons: [{
         type: "postback",
-        title: "Tell me more"
+        title: "Tell me more",
         payload: "@"+job.id+":more"
       }, {
         type: "postback",
