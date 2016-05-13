@@ -32,7 +32,7 @@ var botHandler = function (sender, payload, type) {
             else if (payload.indexOf('bye') > -1 || payload.indexOf('later') > -1) {
                 sendTextMessage(sender, "It was great talking to you! Have a fantastic day :)");
             } else {
-                sendTextMessage(sender, "jdudfaSJJdSLEod DJDJe SJSJS... That's how it feels when you send me gibbirish :( How about trying to ask about David's Job Experience, Skills, Projects, Education, or Interests? \n\n Sorry, sometimes I get mad that David didn't build any natural language processing for me. He said he's \"busy\");
+                sendTextMessage(sender, "jdudfaSJJdSLEod DJDJe SJSJS... That's how it feels when you send me gibbirish :( How about trying to ask about David's Job Experience, Skills, Projects, Education, or Interests? \n\n Sorry, sometimes I get mad that David didn't build any natural language processing for me. He said he's \"busy\"");
             }
         } else if (type == "postback") {
             switch (payload.action) {
