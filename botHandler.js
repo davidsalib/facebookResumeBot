@@ -298,7 +298,6 @@ function sendCards(sender, payload) {
 function sendHowIWasMade(sender) {
     msg = "Oh, I love this story. David built me in 3 hours on a warm spring day in April of 2016 :D.\n\n";
     msg += "There is a Node.js server hosted on Heroku where your messages are sent through Facebook's Messenger Platform. \n";
-    msg += "Feel free to contact David at me@davidsalib.com\n\n";
     msg += "If you like code, check out my brain on GitHub: https://github.com/davidsalib/facebookResumeBot\n\n";
     msg += "Sincerly,\nBotty";
     sendTextMessage(sender, msg);
