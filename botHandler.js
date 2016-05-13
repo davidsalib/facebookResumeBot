@@ -8,7 +8,7 @@ var botHandler = function (sender, payload, type) {
             if (payload.indexOf("experience") > -1 || payload.indexOf("job") > -1 || payload.indexOf("work") > -1) {
                 sendJobExperience(sender);
             }
-            else if (payload.indexOf('study') > -1 || payload.indexOf("education") > -1 || payload.indexOf("university") > -1) {
+            else if (payload.indexOf('study') > -1 || payload.indexOf("education") > -1 || payload.indexOf("university") > -1 ||  payload.indexOf("school") > -1) {
                 sendEducation(sender);
             }
             else if (payload.indexOf('skills') > -1 || payload.indexOf("coding") > -1 || payload.indexOf("programming") > -1 || payload.indexOf("know") > -1) {

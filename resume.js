@@ -32,6 +32,12 @@ var resume = {
             endYear: 2019
         },
         projects: [{
+            id: "CAT",
+            title: "Catena",
+            img: "http://davidsalib.com/fbBotPics/catena.png",
+            desc: "An iOS & Android app to access 30,000+ commentaries from ancient Church fathers and allow users to share thoughts on verses.",
+            technologies: ["Ionic/Cordova", "AngularJS", "Node.js", "MongoDB", "SQLite"]
+        }, {
             id: "FHT",
             title: "FHTSystem",
             img: "http://davidsalib.com/fbBotPics/fhtImg.png",
