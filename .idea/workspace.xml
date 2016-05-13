@@ -27,8 +27,8 @@
       <file leaf-file-name="botHandler.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/botHandler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="34" column="320" selection-start-line="34" selection-start-column="320" selection-end-line="34" selection-end-column="320" />
+            <state relative-caret-position="234">
+              <caret line="34" column="338" selection-start-line="34" selection-start-column="338" selection-end-line="34" selection-end-column="338" />
               <folding />
             </state>
           </provider>
@@ -209,12 +209,12 @@
       <option name="presentableId" value="Default" />
       <updated>1461111802865</updated>
       <workItem from="1461111804359" duration="7509000" />
-      <workItem from="1463173089299" duration="2843000" />
+      <workItem from="1463173089299" duration="2931000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10352000" />
+    <option name="totallyTimeSpent" value="10440000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="30" y="23" width="1250" height="777" extended-state="6" />
@@ -281,8 +281,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/botHandler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="34" column="320" selection-start-line="34" selection-start-column="320" selection-end-line="34" selection-end-column="320" />
+        <state relative-caret-position="234">
+          <caret line="34" column="338" selection-start-line="34" selection-start-column="338" selection-end-line="34" selection-end-column="338" />
           <folding />
         </state>
       </provider>

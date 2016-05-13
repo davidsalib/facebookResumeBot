@@ -32,7 +32,7 @@ var botHandler = function (sender, payload, type) {
             else if (payload.indexOf('bye') > -1 || payload.indexOf('later') > -1) {
                 sendTextMessage(sender, "It was great talking to you! Have a fantastic day :)");
             } else {
-                sendTextMessage(sender, "jdudfaSJJdSLEod DJDJe SJSJS... That's how it feels when you send me something I don't understand :( Try asking about David's Job Experience, Skills, Projects, Education, or Interests. \n\n...Sorry, sometimes I get a bit sad that David didn't build me natural language processing :'( (he said he might use wit.ai in the future to improve me!) ");
+                sendTextMessage(sender, "jdudfaSJJdSLEod DJDJe SJSJS... That's how it feels when you send me something I don't understand :( Try asking about David's Job Experience, Skills, Projects, Education, or Interests. \n\nbut..., David told me that he might use wit.ai in the future to teach me to understand your alien language :D");
             }
         } else if (type == "postback") {
             switch (payload.action) {
