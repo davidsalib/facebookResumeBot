@@ -179,7 +179,7 @@ function sendJobExperience(sender) {
 function sendProjects(sender) {
     var payload = [];
     var projects = resume.projects;
-    for (var i = 0; i < jobs.length; i++) {
+    for (var i = 0; i < projects.length; i++) {
         var item = {
             title: projects[i].title,
             subtitle: projects[i].desc,
