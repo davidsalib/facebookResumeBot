@@ -38,8 +38,8 @@
       <file leaf-file-name="resume.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resume.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="39" column="11" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
+            <state relative-caret-position="570">
+              <caret line="38" column="27" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -210,12 +210,12 @@
       <option name="presentableId" value="Default" />
       <updated>1461111802865</updated>
       <workItem from="1461111804359" duration="7509000" />
-      <workItem from="1463173089299" duration="3735000" />
+      <workItem from="1463173089299" duration="3894000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11244000" />
+    <option name="totallyTimeSpent" value="11403000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="30" y="23" width="1250" height="777" extended-state="6" />
@@ -284,8 +284,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resume.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="39" column="11" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
+        <state relative-caret-position="570">
+          <caret line="38" column="27" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
           <folding />
         </state>
       </provider>
