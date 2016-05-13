@@ -19,11 +19,20 @@ var botHandler = function (sender, payload, type) {
             }
             else if (payload.indexOf("you") > -1 || payload.indexOf("build") > -1 || payload.indexOf("built") > -1 || payload.indexOf("made") > -1 || payload.indexOf("create") > -1) {
                 sendHowIWasMade(sender);
-            } else if (payload.indexOf("project") > -1) {
+            }
+            else if (payload.indexOf("project") > -1) {
                 sendProjects(sender);
             }
-            else {
+            else if (payload.indexOf('interest') >  -1 || payload.indexOf('hobb') > -1) {
+                sendInterests(sender);
+            }
+            else if (payload.indexOf('hi') > -1 || payload.indexOf('hello') > -1 || payload.indexOf('yo') > -1 || payload.indexOf('hey') > -1) {
                 sendTextMessage(sender, "Hi, I'm David's Bot! Ask me about his Skills, Job Experience, Projects, Education, and his Interests.\n\nYou can even ask how he built me :)");
+            }
+            else if (payload.indexOf('bye') > -1 || payload.indexOf('later') > -1) {
+                sendTextMessage(sender, "It was great talking to you! Have a fantastic day :)");
+            } else {
+                sendTextMessage(sender, "jdudfaSJJdSLEod DJDJe SJSJS... That's how it feels when you send me gibbirish :( How about trying to ask about David's Job Experience, Skills, Projects, Education, or Interests? \n\n Sorry, sometimes I get mad that David didn't build any natural language processing for me. He said he's \"busy\");
             }
         } else if (type == "postback") {
             switch (payload.action) {
@@ -204,12 +213,20 @@ function sendProjectTechnologies(sender, id) {
         }
     }
 
-    var msg = project.company + ", is built using:\n";
+    var msg = project.title + ", is built using:\n";
 
     for (var i = 0; i < project.technologies.length; i++) {
         msg += "- " + project.technologies[i] + "\n";
     }
 
+    sendTextMessage(sender, msg);
+}
+
+function sendInterests(sender) {
+    var msg = "David's interests include: \n";
+    for (var i = 0; i < resume.interests.length; i++) {
+        msg += "- " + resume.interests[i] + "\n";
+    }
     sendTextMessage(sender, msg);
 }
 

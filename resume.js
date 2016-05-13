@@ -36,7 +36,7 @@ var resume = {
             title: "Catena",
             img: "http://davidsalib.com/fbBotPics/catena.png",
             desc: "An iOS & Android app to access 30,000+ commentaries from ancient Church fathers and allow users to share thoughts on verses.",
-            technologies: ["Ionic/Cordova", "AngularJS", "Node.js" , "MongoDB" , "SQLite"]
+            technologies: ["Ionic/Cordova", "AngularJS", "Node.js", "MongoDB", "SQLite"]
         }, {
             id: "FHT",
             title: "FHTSystem",
@@ -96,7 +96,8 @@ var resume = {
             }, {
                 title: "Redis"
             }]
-        }
+        },
+        interests: ["Guitar (Classic + Fingerstyle)", "Basketball", "Photography", "Ping-Pong", "Hiking", "Traveling"]
     }
     ;
 
