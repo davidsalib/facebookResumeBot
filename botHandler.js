@@ -1,114 +1,11 @@
 var request = require('request');
 var token = "EAAYQyuiljoABABWfDx8QZAtZCkvpkx9TbZAkmv8MehxZAF2OgeQviRxz6nWNW0gxKgMq50vDEMIUY3j2P8t05wq7rOHEbVjCFiRANvetqAgnWqrNX9ZAPpcTrTRgZCi3T1oZBeDPV9hVheJeGAc18E49KiDMkRsRGGTt8CFxiyNyQZDZD";
-
-var resume = {
-    name: "David Salib",
-    jobs: [{
-        id: "SIE",
-        img: "http://media.psu.com/media/articles/image/PlayStation%20Logo.jpg",
-        company: "Sony Interactive Entertainment",
-        role: "Software Engineer",
-        startDate: "January 2016",
-        endDate: "April 2016",
-        desc: [
-            "worked on the PlayStation Store and PlayStation Video Apps for iOS and Android."
-        ],
-        technologies: ["JavaScript", "Objective-C", "CSS3 Animations", "ReactJS", "Backbone.js"],
-        highlightAchievement: "developed and released PlayStation Video for Android 8| (https://play.google.com/store/apps/details?id=com.playstation.video)"
-    }, {
-        id: "FAO",
-        img: "https://edge.frankandoak.com/media/stylenote/uploads/2015/03/STORE1.jpg",
-        company: "Frank & Oak",
-        role: "Web Developer",
-        startDate: "May 2015",
-        endDate: "September 2015",
-        desc: [
-            "Developed e-commerce and API tools to support one of North America's fastest growing fashion startups."
-        ],
-        technologies: ["PHP + Magento", "JavaScript"],
-        highlightAchievement: "proposed and developed a customer service tool that replaced Frank & Oak's previous order fulfillment process, improving efficiency by 200% :D"
-    }],
-    education: {
-        institution: "University of Waterloo",
-        degree: "Computer Science",
-        startYear: 2014,
-        endYear: 2019
-    },
-    projects: [{
-        title: "Catena",
-        img: "https://www.savannahstate.edu/academic-affairs/images/thailand_pic.jpg"
-    }, {
-        title: "FHTSystem",
-        img: "https://www.savannahstate.edu/academic-affairs/images/thailand_pic.jpg"
-    }, {
-        title: "Pluto",
-        img: "https://www.savannahstate.edu/academic-affairs/images/thailand_pic.jpg"
-    }],
-    technicalSkills: {
-        languages: [{
-            title: "JavaScript (ES5 & ES6)",
-            level: 5
-        }, {
-            title: "PHP",
-            level: 5
-        }, {
-            title: "C++",
-            level: 5
-        }, {
-            title: "Objective-C",
-            level: 5
-        }, {
-            title: "Scheme",
-            level: 5
-        }, {
-            title: "PHP",
-            level: 5
-        }],
-        frameworks: [{
-            title: "React & React Native",
-            level: 5
-        }, {
-            title: "AngularJS",
-            level: 5
-        }, {
-            title: "Cordova + Ionic",
-            level: 5
-        }, {
-            title: "NodeJS",
-            level: 5
-        }, {
-            title: "Laravel",
-            level: 5
-        }, {
-            title: "Magento",
-            level: 5
-        }],
-        tools: [{
-            title: "Git",
-            level: 5
-        }, {
-            title: "MongoDB",
-            level: 5
-        }, {
-            title: "MySQL",
-            level: 5
-        }, {
-            title: "Amazon Web Services",
-            level: 5
-        }, {
-            title: "Heroku",
-            level: 5
-        }, {
-            title: "Redis",
-            level: 5
-        }]
-    }
-};
+var resume = require('./resume');
 
 var botHandler = function (sender, payload, type) {
         if (type == "message") {
             payload = text.toLowerCase();
-            if (payload.indexOf("experience") > -1 || payload.indexOf("job") > -1) {
+            if (payload.indexOf("experience") > -1 || payload.indexOf("job") > -1 || payload.indexOf("work") > -1) {
                 sendJobExperience(sender);
             }
             else if (payload.indexOf('study') > -1 || payload.indexOf("education") > -1 || payload.indexOf("university") > -1) {
@@ -122,6 +19,8 @@ var botHandler = function (sender, payload, type) {
             }
             else if (payload.indexOf("you") > -1 || payload.indexOf("build") > -1 || payload.indexOf("built") > -1 || payload.indexOf("made") > -1 || payload.indexOf("create") > -1) {
                 sendHowIWasMade(sender);
+            } else if (payload.indexOf("project") > -1) {
+                sendProjects(sender);
             }
             else {
                 sendTextMessage(sender, "Hi, I'm David's Bot! Ask me about his Skills, Job Experience, Projects, Education, and his Interests.\n\nYou can even ask how he built me :)");
@@ -263,6 +162,26 @@ function sendJobExperience(sender) {
                 title: "Highlight Achievement",
                 payload: jobs[i].id + ":jobHighlight"
             }, {
+                type: "postback",
+                title: "Technologies Used",
+                payload: jobs[i].id + ":jobTechnologies"
+            }]
+        };
+        payload.push(item);
+    }
+
+    sendCards(sender, payload);
+}
+
+function sendProjects(sender) {
+    var payload = [];
+    var jobs = resume.projects;
+    for (var i = 0; i < jobs.length; i++) {
+        var item = {
+            title: jobs[i].title,
+            subtitle: jobs[i].desc,
+            image_url: jobs[i].img,
+            buttons: [{
                 type: "postback",
                 title: "Technologies Used",
                 payload: jobs[i].id + ":jobTechnologies"
