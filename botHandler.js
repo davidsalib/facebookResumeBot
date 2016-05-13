@@ -36,6 +36,9 @@ var botHandler = function (sender, payload, type) {
                 case "jobTechnologies":
                     sendJobTechnologies(sender, payload.id);
                     break;
+                case "projectTechnologies":
+                    sendProjectTechnologies(sender, payload.id);
+                    break;
                 case "languages":
                     sendSkillsLanguages(sender);
                     break;
@@ -175,22 +178,39 @@ function sendJobExperience(sender) {
 
 function sendProjects(sender) {
     var payload = [];
-    var jobs = resume.projects;
+    var projects = resume.projects;
     for (var i = 0; i < jobs.length; i++) {
         var item = {
-            title: jobs[i].title,
-            subtitle: jobs[i].desc,
-            image_url: jobs[i].img,
+            title: projects[i].title,
+            subtitle: projects[i].desc,
+            image_url: projects[i].img,
             buttons: [{
                 type: "postback",
                 title: "Technologies Used",
-                payload: jobs[i].id + ":jobTechnologies"
+                payload: projects[i].id + ":projectTechnologies"
             }]
         };
         payload.push(item);
     }
 
     sendCards(sender, payload);
+}
+
+function sendProjectTechnologies(sender, id) {
+    var project;
+    for (var i = 0; i < resume.projects.length; i++) {
+        if (resume.projects[i].id == id) {
+            project = resume.projects[i];
+        }
+    }
+
+    var msg = project.company + ", is built using:\n";
+
+    for (var i = 0; i < project.technologies.length; i++) {
+        msg += "- " + project.technologies[i] + "\n";
+    }
+
+    sendTextMessage(sender, msg);
 }
 
 
@@ -276,9 +296,10 @@ function sendCards(sender, payload) {
 
 /** FUN **/
 function sendHowIWasMade(sender) {
-    msg = "Oh, I love this story. David built me in 3 hours on a warm spring day in April of 2016 B|.\n\n";
-    msg += "There is a NodeJS server hosted on Heroku where your messages are sent through Facebook's Messenger Platform. \n";
+    msg = "Oh, I love this story. David built me in 3 hours on a warm spring day in April of 2016 :D.\n\n";
+    msg += "There is a Node.js server hosted on Heroku where your messages are sent through Facebook's Messenger Platform. \n";
     msg += "Feel free to contact David at me@davidsalib.com\n\n";
+    msg += "If you like code, check out my brain on GitHub: https://github.com/davidsalib/facebookResumeBot\n\n";
     msg += "Sincerly,\nBotty";
     sendTextMessage(sender, msg);
 }

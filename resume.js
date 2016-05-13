@@ -32,21 +32,25 @@ var resume = {
             endYear: 2019
         },
         projects: [{
+            id: "CAT",
             title: "Catena",
             img: "http://davidsalib.com/fbBotPics/catena.png",
             desc: "An iOS & Android app to access 30,000+ commentaries from ancient Church fathers and allow users to share thoughts on verses.",
             technologies: ["Ionic/Cordova", "AngularJS", "Node.js" , "MongoDB" , "SQLite"]
         }, {
+            id: "FHT",
             title: "FHTSystem",
             img: "http://davidsalib.com/fbBotPics/fhtImg.png",
             desc: "Built for FHT Association of Ontario to quantitatively measure and manage health programs. Faetures include: patient surveying, indicator data visualization, and program planning.",
             technologies: ["jQuery", "PHP", "MySQL"]
         }, {
+            id: "JL",
             title: "JobLot",
             img: "http://davidsalib.com/fbBotPics/joblotLogo.png",
             desc: "Entry-level job search web app with a modern UX and simple resume builder. Created a real-time resume template creator based on custom AngularJS directives.",
             technologies: ["AngularJS", "Laravel/PHP", "MySQL"]
         }, {
+            id: "GPLO",
             title: "GoPluto",
             img: "http://res.freestockphotos.biz/pictures/17/17335-a-man-consulting-his-pharmacist-pv.jpg",
             desc: "Built for a Toronto pharmacy to manage clients in senior care facilities. Developed payments with Stripe, Excel imports, PDF exports, and barcode integration",
@@ -54,17 +58,17 @@ var resume = {
         }],
         technicalSkills: {
             languages: [{
-                title: "JavaScript (ES5 & ES6)",
+                title: "JavaScript (ES5 & ES6)"
             }, {
-                title: "PHP",
+                title: "PHP"
             }, {
-                title: "C++",
+                title: "C++"
             }, {
-                title: "Objective-C",
+                title: "Objective-C"
             }, {
-                title: "Scheme",
+                title: "Scheme"
             }, {
-                title: "PHP",
+                title: "PHP"
             }],
             frameworks: [{
                 title: "React & React Native"
